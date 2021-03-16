@@ -21,9 +21,5 @@ public class TimingCircle : MonoBehaviour
             Destroy(transform.gameObject);
         }
 
-        if (transform == null)
-        {
-            Debug.Log("Circle is gone");
-        }
     }
 }

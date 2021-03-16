@@ -15,6 +15,9 @@ public class NoteMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Note spawns and quickly moves towards the target position
         transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime*6);
+
+        Destroy(transform.gameObject, 3f);
     }
 }

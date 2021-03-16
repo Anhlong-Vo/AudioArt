@@ -9,12 +9,6 @@ public class Spawner : MonoBehaviour
     public float beat;
     private float timer;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +22,6 @@ public class Spawner : MonoBehaviour
 
             timer -= beat;
 
-            Destroy(note, 3f);
         }
         timer += Time.deltaTime;
         
