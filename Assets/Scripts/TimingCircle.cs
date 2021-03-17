@@ -14,9 +14,9 @@ public class TimingCircle : MonoBehaviour
     void Update()
     {
         // Timing circle slowly shrinks in size
-        transform.localScale -= new Vector3(Time.deltaTime/4, Time.deltaTime/4,  Time.deltaTime/4);
+        transform.localScale -= new Vector3(Time.deltaTime*2, Time.deltaTime*2,  Time.deltaTime*2);
 
-        if (transform.localScale.x < 0.3f)
+        if (transform.localScale.x < 0f)
         {
             Destroy(transform.gameObject);
         }

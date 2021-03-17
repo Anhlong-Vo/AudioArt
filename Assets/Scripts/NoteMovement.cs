@@ -18,6 +18,6 @@ public class NoteMovement : MonoBehaviour
         // Note spawns and quickly moves towards the target position
         transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime*6);
 
-        Destroy(transform.gameObject, 3f);
+        Destroy(transform.gameObject, 4f);
     }
 }
