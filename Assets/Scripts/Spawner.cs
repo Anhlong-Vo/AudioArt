@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
             Vector3 target = new Vector3(spawn.x, spawn.y, 2f);
 
             GameObject note = Instantiate(notes, spawn, Quaternion.identity);
-            //GameObject circle = Instantiate(timingCircle, target, Quaternion.identity);
+            GameObject circle = Instantiate(timingCircle, target, Quaternion.identity);
 
             timer -= beat;
 
