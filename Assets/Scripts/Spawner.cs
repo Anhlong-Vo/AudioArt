@@ -4,27 +4,34 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject notes;
-    public GameObject timingCircle;
-    public float beat;
+    public float beatTempo;
+    
     private float timer;
+    public GameObject notes;
+
+    // Start is called before any of the Update methods is called the first time
+    private void Start()
+    {
+        this.beatTempo = beatTempo / 60f;
+        
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (timer > beat)
+        if (timer>beatTempo)
         {
-            Vector3 spawn = new Vector3(Random.Range(-1f, 2f), Random.Range(1f, 2f), 15f);
-            Vector3 target = new Vector3(spawn.x, spawn.y, 2f);
+            Vector3 spawn = new Vector3(Random.Range(-1f, 2f), Random.Range(1f, 2f), 10f);
+            
+            Instantiate(notes, spawn, Quaternion.identity);
+            
 
-            GameObject note = Instantiate(notes, spawn, Quaternion.identity);
-            GameObject circle = Instantiate(timingCircle, target, Quaternion.identity);
-
-            timer -= beat;
-
+            timer -= beatTempo;
         }
         timer += Time.deltaTime;
         
+
+
     }
 
 }
