@@ -5,21 +5,23 @@ using UnityEngine;
 
 public class TimingCircle : MonoBehaviour
 {
-    public float beatTempo;
+    // speed of the timing circle
+    private float speed;
+
     // Start is called before any of the Update methods is called the first time
     private void Start()
     {
-        this.beatTempo = beatTempo / 60f;
+        this.speed = 111f / 60f;
     }
+
     // Update is called once per frame
     void Update()
     {
-        
-        // Timing circle shrinks in size
 
+        // if timing circle scale is below zero, disable it
         if (transform.localScale.x < 0f)
         {
-            
+
             //Destroy(transform.parent.gameObject);
             //Destroy(transform.gameObject);
             transform.parent.gameObject.SetActive(false);
@@ -28,24 +30,28 @@ public class TimingCircle : MonoBehaviour
 
         else
         {
-            transform.localScale -= new Vector3(beatTempo * Time.deltaTime, beatTempo * Time.deltaTime, beatTempo * Time.deltaTime);
-            if (transform.localScale.x < 0.2f)
-            {
+            // decrease timing circle scale      
+            transform.localScale -= new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, speed * Time.deltaTime);
                 
+               
+            if (transform.localScale.x < 0.3f)
+            {
+                // indicating that the timing circle is in a good hit position, not perfect hit anymore
                 try
                 {
                     GameObject.FindWithTag("Hit Note").GetComponent<CircleCollision>().SetHit(false);
                 }
-                
+
                 catch (NullReferenceException)
                 {
                     transform.gameObject.SetActive(false);
-                    
+
                 }
-                
-                
+
+
             }
         }
+        
 
     }
 

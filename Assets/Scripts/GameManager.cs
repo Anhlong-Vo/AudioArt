@@ -1,20 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public AudioSource music;
+    //public AudioSource music;
 
     public bool startPlaying;
-
-    public Spawner spawner;
 
     public static GameManager instance;
 
     public int currentScore;
-    public int scorePerNote = 100;
+    public int scorePerPerfectNote = 100;
+    public int scorePerGoodNote = 50;
 
     public int currentMultiplier;
     public int multiplierTracker;
@@ -36,20 +33,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!startPlaying)
-        {
-            if (spawner.isActiveAndEnabled)
-            {
-                startPlaying = true;
 
-                music.Play() ;
-            }
-        }
     }
+
     public void NoteHit()
     {
-        Debug.Log("Note Hit");
-
         if (currentMultiplier - 1 < multiplierThresholds.Length)
         {
             multiplierTracker++;
@@ -60,14 +48,25 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        currentScore += scorePerNote * currentMultiplier;
+
         scoreText.text = "Score: " + currentScore;
         multiplierText.text = "Multiplier: x" + currentMultiplier;
     }
 
+    public void GoodHit()
+    {
+        currentScore += scorePerGoodNote * currentMultiplier;
+        NoteHit();
+    }
+
+    public void PerfectHit()
+    {
+        currentScore += scorePerPerfectNote * currentMultiplier;
+        NoteHit();
+    }
+
     public void NoteMissed()
     {
-        Debug.Log("Missed");
         currentMultiplier = 1;
         multiplierTracker = 0;
         multiplierText.text = "Multiplier: x" + currentMultiplier;
