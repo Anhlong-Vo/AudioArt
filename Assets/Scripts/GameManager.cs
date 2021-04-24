@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Text multiplierText;
 
-
-
     // Start is called before the first frame update
     void Start()
     {

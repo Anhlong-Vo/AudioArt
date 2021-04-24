@@ -7,6 +7,7 @@ public class TimingCircle : MonoBehaviour
 {
     // speed of the timing circle
     private float speed;
+    public GameObject missedEffect;
 
     // Start is called before any of the Update methods is called the first time
     private void Start()
@@ -25,6 +26,7 @@ public class TimingCircle : MonoBehaviour
             //Destroy(transform.parent.gameObject);
             //Destroy(transform.gameObject);
             transform.parent.gameObject.SetActive(false);
+            Instantiate(missedEffect, transform.parent.position, missedEffect.transform.rotation);
             GameManager.instance.NoteMissed();
         }
 
@@ -34,7 +36,7 @@ public class TimingCircle : MonoBehaviour
             transform.localScale -= new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, speed * Time.deltaTime);
                 
                
-            if (transform.localScale.x < 0.3f)
+            if (transform.localScale.x < 0.4f)
             {
                 // indicating that the timing circle is in a good hit position, not perfect hit anymore
                 try

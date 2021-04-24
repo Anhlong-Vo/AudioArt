@@ -6,6 +6,7 @@ using UnityEngine.XR;
 
 public class Note : MonoBehaviour
 {
+    public GameObject perfectEffect, goodEffect;
 
     private void OnDisable()
     {
@@ -29,11 +30,16 @@ public class Note : MonoBehaviour
             if (GameObject.FindWithTag("Hit Note").GetComponent<CircleCollision>().GetHit())
             {
                 //Debug.Log("PERFECT HIT");
+                Instantiate(perfectEffect, transform.position, perfectEffect.transform.rotation);
                 GameManager.instance.PerfectHit();
+
+                // set canBeHit back to false
+                GameObject.FindWithTag("Hit Note").GetComponent<CircleCollision>().SetHit(false);
             }
             else
             {
                 //Debug.Log("NOT PERFECT");
+                Instantiate(goodEffect, transform.position, goodEffect.transform.rotation);
                 GameManager.instance.GoodHit();
             }
 

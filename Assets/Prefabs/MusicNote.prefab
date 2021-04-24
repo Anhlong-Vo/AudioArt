@@ -126,6 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed2562eb3b8ecc048a0d7c733fa67596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  perfectEffect: {fileID: 5133344750663441359, guid: 626d4dcb887116242b28fcd5b47bedde,
+    type: 3}
+  goodEffect: {fileID: 8634122608165743981, guid: a53a76e21d83de74cb772dbfe119179f,
+    type: 3}
 --- !u!135 &1185129353
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -137,7 +141,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.17
   m_Center: {x: 0, y: 0.18, z: 0}
 --- !u!54 &1112815026
 Rigidbody:
@@ -321,6 +325,12 @@ PrefabInstance:
       propertyPath: beatTempo
       value: 111
       objectReference: {fileID: 0}
+    - target: {fileID: 4613060616435151083, guid: a171c4b0b228a5f4a977c009ec4312b9,
+        type: 3}
+      propertyPath: missedEffect
+      value: 
+      objectReference: {fileID: 7399442726467734708, guid: 2a6c04dd7e08b614eb73302d23d6d5b4,
+        type: 3}
     - target: {fileID: 4613060616435151083, guid: a171c4b0b228a5f4a977c009ec4312b9,
         type: 3}
       propertyPath: timingCircle

@@ -13,10 +13,6 @@ public class CircleCollision : MonoBehaviour
 
     public bool GetHit()
     {
-        if (gameObject.activeSelf == false)
-        {
-            return false;
-        }
         return canBeHit;
     }
 
