@@ -10,19 +10,30 @@ public class GameManager : MonoBehaviour
     public int scorePerPerfectNote = 100;
     public int scorePerGoodNote = 50;
 
+    
     public int currentMultiplier;
+
+    // check if it meets the threshold or not
     public int multiplierTracker;
+
+    // shows the thresholds when to increase the currentMultiplier
     public int[] multiplierThresholds;
 
     public Text scoreText;
     public Text multiplierText;
 
     public float totalNotes;
+
+    // number of notes hit early or late
     public float goodHits;
+
+    // number of notes hit perfectly
     public float perfectHits;
+
     public float missedHits;
 
     public GameObject resultCanvas;
+    // text values that need to be updated
     public TMP_Text perfectValue, goodValue, missedValue, percentageValue, rankValue, finalScoreValue;
 
 
@@ -65,7 +76,9 @@ public class GameManager : MonoBehaviour
                 goodAccuracy += 0.5f;
             }
 
-
+            // 100% = all notes hit perfectly
+            // good notes worth 0.5
+            // perfect notes worth 1
             float percentHit = ((goodAccuracy + perfectHits) / totalNotes ) * 100f;
             percentageValue.text = percentHit.ToString("F1") + "%";
 
