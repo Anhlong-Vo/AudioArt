@@ -33,11 +33,21 @@ public class SongManager : MonoBehaviour
 
     public static SongManager instance;
 
+    public static bool paused = false;
+    public static float pauseTimeStamp = -1f;
+    private float pausedTime = 0f;
+
+    public GameObject pauseCanvas;
+
+    public bool songEnd = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        paused = false;
+        pauseTimeStamp = -1f;
 
         //calculate how many seconds in one beat
         secPerBeat = 60f / bpm;
@@ -52,8 +62,30 @@ public class SongManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (paused)
+        {
+            if (pauseTimeStamp < 0f)
+            {
+                pauseTimeStamp = (float)AudioSettings.dspTime;
+                music.Pause();
+                Time.timeScale = 0;
+                pauseCanvas.SetActive(true);
+            }
+            return;
+
+        }
+        else if (pauseTimeStamp > 0f)
+        {
+            pausedTime += (float)AudioSettings.dspTime - pauseTimeStamp;
+            music.Play();
+            Time.timeScale = 1;
+
+            pauseTimeStamp = -1f;
+            pauseCanvas.SetActive(false);
+        }
+
         // calculate position in seconds
-        songPosition = (float)(AudioSettings.dspTime - dsptimesong - offset);
+        songPosition = (float)(AudioSettings.dspTime - dsptimesong - offset - pausedTime);
 
         //calculate postion in beats
         songPosInBeats = songPosition / secPerBeat;
@@ -72,10 +104,15 @@ public class SongManager : MonoBehaviour
             
         }
 
-        // reload back to the main menu when the song ends
-        if (!music.isPlaying)
+        if (nextIndex >= notes.Length)
         {
-            SceneManager.LoadScene("VR");
+            songEnd = true;
         }
+
+        // reload back to the main menu when the song ends
+        //if (!music.isPlaying)
+        //{
+            //SceneManager.LoadScene("VR");
+        //}
     }       
 }

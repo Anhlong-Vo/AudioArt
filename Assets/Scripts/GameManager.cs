@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    //public AudioSource music;
-
-    public bool startPlaying;
-
     public static GameManager instance;
 
     public int currentScore;
@@ -20,6 +17,15 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Text multiplierText;
 
+    public float totalNotes;
+    public float goodHits;
+    public float perfectHits;
+    public float missedHits;
+
+    public GameObject resultCanvas;
+    public TMP_Text perfectValue, goodValue, missedValue, percentageValue, rankValue, finalScoreValue;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,11 +37,70 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SongManager.instance != null && !SongManager.instance.music.isPlaying && !resultCanvas.activeInHierarchy && SongManager.instance.songEnd)
+        {
+            resultCanvas.SetActive(true);
 
+            perfectValue.text = perfectHits.ToString();
+            goodValue.text = goodHits.ToString();
+            missedValue.text = missedHits.ToString();
+
+            //float maxScore = 0;
+            //for (int i=0; i < multiplierThresholds.Length; i++)
+            //{
+            //    for (int j = i; j < multiplierThresholds[i]; j++)
+            //    {
+            //        maxScore += scorePerPerfectNote * (i + 1);
+            //    }
+            //}
+
+            //for (int k = multiplierThresholds[multiplierThresholds.Length-1]; k < totalNotes; k++)
+            //{
+            //    maxScore += scorePerPerfectNote * (multiplierThresholds.Length + 1);
+            //}
+
+            float goodAccuracy = 0;
+            for (int i = 0; i < goodHits; i++)
+            {
+                goodAccuracy += 0.5f;
+            }
+
+
+            float percentHit = ((goodAccuracy + perfectHits) / totalNotes ) * 100f;
+            percentageValue.text = percentHit.ToString("F1") + "%";
+
+            if (percentHit > 95)
+            {
+                rankValue.text = "S";
+            }
+            else if (percentHit > 85)
+            {
+                rankValue.text = "A";
+            }
+            else if (percentHit > 70)
+            {
+                rankValue.text = "B";
+            }
+            else if (percentHit > 60)
+            {
+                rankValue.text = "C";
+            }
+            else if (percentHit > 50)
+            {
+                rankValue.text = "D";
+            }
+            else
+            {
+                rankValue.text = "F";
+            }
+
+            finalScoreValue.text = currentScore.ToString();
+        }
     }
 
     public void NoteHit()
     {
+        totalNotes++;
         if (currentMultiplier - 1 < multiplierThresholds.Length)
         {
             multiplierTracker++;
@@ -55,12 +120,14 @@ public class GameManager : MonoBehaviour
     {
         currentScore += scorePerGoodNote * currentMultiplier;
         NoteHit();
+        goodHits++;
     }
 
     public void PerfectHit()
     {
         currentScore += scorePerPerfectNote * currentMultiplier;
         NoteHit();
+        perfectHits++;
     }
 
     public void NoteMissed()
@@ -68,5 +135,9 @@ public class GameManager : MonoBehaviour
         currentMultiplier = 1;
         multiplierTracker = 0;
         multiplierText.text = "Multiplier: x" + currentMultiplier;
+
+        totalNotes++;
+        missedHits++;
+
     }
 }

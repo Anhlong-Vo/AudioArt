@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NoteVisuals : MonoBehaviour
 {
-    public float lifetime = 0.2f;
+    public float lifetime = 0.1f;
 
     // Start is called before the first frame update
     void Start()
